@@ -1,43 +1,46 @@
 # iron-flow
 
-Bộ skill cho Claude Code: một **pipeline dev 5 phase** (`/flow-*`) **viết lại tổng hợp** từ điểm mạnh của
-[gstack](https://github.com/garrytan/gstack), [mattpocock/skills](https://github.com/mattpocock/skills) và
-[superpowers](https://github.com/obra/superpowers-marketplace). Các skill **tự chứa** (không cần `bun`, không
-gọi `bin/` của gstack, không phụ thuộc plugin nào) → cài lại được trên mọi máy / project bằng một script.
+A skill pack for Claude Code: a **5-phase dev pipeline** (`/flow-*`), **rewritten and merged** from the best
+parts of [gstack](https://github.com/garrytan/gstack),
+[mattpocock/skills](https://github.com/mattpocock/skills) and
+[superpowers](https://github.com/obra/superpowers-marketplace). The skills are **self-contained** (no `bun`, no
+calls into gstack's `bin/`, no plugin dependencies) → reinstallable on any machine or project with one script.
 
-## Cài
+## Install
 
 ```bash
 git clone git@github.com:Pirate298/iron-flow.git ~/.iron-flow
 ~/.iron-flow/install.sh                 # → user config: ${CLAUDE_CONFIG_DIR:-~/.claude}/skills
-# hoặc cài cho riêng 1 project (như BMAD):
+# or install into a single project (BMAD-style):
 ~/.iron-flow/install.sh --project /path/to/project     # → <project>/.claude/skills
 ```
-Mở phiên Claude Code mới để nạp. Cài lại/ cập nhật: `git pull && ~/.iron-flow/install.sh`.
+Open a new Claude Code session to load them. To reinstall / update: `git pull && ~/.iron-flow/install.sh`.
 
 ## Pipeline
 
-| Lệnh | Phase | Làm gì |
+| Command | Phase | What it does |
 |---|---|---|
-| `/flow` | master | Điều phối cả chuỗi, có gate; tái nhập feature mới; lối tắt fix nhỏ |
-| `/flow-intake` | Nhận | Requirement + UI/UX mơ hồ → scope chốt (6 forcing questions, alternatives, gate duyệt) |
-| `/flow-design` | Thiết kế | Requirement → thiết kế hệ thống FE↔BE, contract, domain model (CONTEXT.md/ADR), plan cắt lát |
-| `/flow-build` | Code+Test | worktree + TDD (đỏ trước), tracer-bullet, vitest/jest, E2E Maestro |
-| `/flow-debug` | Debug | Feedback-loop → root cause → regression test (Iron Law: no fix without root cause) |
-| `/flow-ship` | Ra sản phẩm | Review 2 trục + checklist → verify khớp thiết kế (bằng chứng tươi) → merge/PR → build |
+| `/flow` | master | Orchestrates the whole chain with gates; re-entry for new features; shortcut for small fixes |
+| `/flow-intake` | Intake | Vague requirement + UI/UX → locked scope (6 forcing questions, alternatives, approval gate) |
+| `/flow-design` | Design | Requirement → FE↔BE system design, contracts, domain model (CONTEXT.md/ADR), sliced plan |
+| `/flow-build` | Code+Test | Worktree + TDD (red first), tracer bullet, vitest/jest, Maestro E2E |
+| `/flow-debug` | Debug | Feedback loop → root cause → regression test (Iron Law: no fix without a root cause) |
+| `/flow-ship` | Ship | Two-axis review + checklist → verify against the design (fresh evidence) → merge/PR → build |
 
-**4 Iron Laws:** không impl trước khi design duyệt · không code khi chưa test đỏ · không fix khi chưa ra
-root cause · không tuyên bố xong khi chưa verify tươi.
+**The 4 Iron Laws:** no implementation before the design is approved · no code before a failing test · no fix
+before the root cause is found · no "done" before fresh verification.
 
-## Tùy biến
+## Customizing
 
-- Bật/tắt hay thêm skill: sửa [manifest.txt](manifest.txt) (mỗi `[area]` = một prefix `<area>-<skill>`), chạy lại `install.sh`.
-- Thêm mảng mới: mở `[tên-mảng]` rồi liệt kê thư mục skill dưới `skills/`.
+- Enable/disable or add a skill: edit [manifest.txt](manifest.txt) (each `[area]` becomes an `<area>-<skill>`
+  prefix), then re-run `install.sh`.
+- Add a new area: open an `[area-name]` section and list the skill directories under `skills/`.
 
-## Cập nhật từ upstream
+## Syncing from upstream
 
-Skill là bản tổng hợp (fork) — không auto-pull. Khi muốn đồng bộ lại: `dev/resync.sh` kéo 3 nguồn vào
-`.sources/` (gitignored) và in commit mới kể từ SHA trong [SOURCES.md](SOURCES.md); đọc lại rồi sửa tay phase
-tương ứng (footer `<!-- sources: ... -->` trong mỗi SKILL.md cho biết ăn theo skill nào).
+The skills are a merged rewrite (a fork) — they do not auto-pull. To resync: `dev/resync.sh` pulls the 3
+sources into `.sources/` (gitignored) and prints the commits landed since the SHAs recorded in
+[SOURCES.md](SOURCES.md); read those, then hand-edit the matching phase (the `<!-- sources: ... -->` footer in
+each SKILL.md says which upstream skill it descends from).
 
-Xem [NOTICE.md](NOTICE.md) cho attribution.
+See [NOTICE.md](NOTICE.md) for attribution.
