@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# agent-kit installer — cài skill vào Claude Code (copy + áp prefix theo [area] + sentinel cleanup).
+# iron-flow installer — cài skill vào Claude Code (copy + áp prefix theo [area] + sentinel cleanup).
 # Không phụ thuộc nguồn ngoài: mọi skill trong skills/ là bản tự chứa.
 #
 # Dùng:
@@ -10,7 +10,7 @@ set -euo pipefail
 
 KIT="$(cd "$(dirname "$0")" && pwd)"
 MANIFEST="$KIT/manifest.txt"
-SENTINEL=".agent-kit-managed"
+SENTINEL=".iron-flow-managed"
 
 MODE="user"; PROJDIR=""; TARGET=""
 while [ $# -gt 0 ]; do
@@ -28,7 +28,7 @@ if [ -z "$TARGET" ]; then
 fi
 mkdir -p "$TARGET"
 
-# 1) dọn bản agent-kit cài lần trước (thư mục có sentinel)
+# 1) dọn bản iron-flow cài lần trước (thư mục có sentinel)
 for d in "$TARGET"/*; do
   [ -e "$d" ] || continue
   [ -f "$d/$SENTINEL" ] && rm -rf "$d"
@@ -54,5 +54,5 @@ while IFS= read -r raw; do
   echo "  /$name"; count=$((count + 1))
 done < "$MANIFEST"
 
-echo "agent-kit: đã cài $count skill → $TARGET"
+echo "iron-flow: đã cài $count skill → $TARGET"
 echo "(mở phiên Claude Code mới để nạp)"

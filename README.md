@@ -1,4 +1,4 @@
-# agent-kit
+# iron-flow
 
 Bộ skill cho Claude Code: một **pipeline dev 5 phase** (`/flow-*`) **viết lại tổng hợp** từ điểm mạnh của
 [gstack](https://github.com/garrytan/gstack), [mattpocock/skills](https://github.com/mattpocock/skills) và
@@ -8,12 +8,12 @@ gọi `bin/` của gstack, không phụ thuộc plugin nào) → cài lại đư
 ## Cài
 
 ```bash
-git clone git@github.com:Pirate298/agent-kit.git ~/.agent-kit
-~/.agent-kit/install.sh                 # → user config: ${CLAUDE_CONFIG_DIR:-~/.claude}/skills
+git clone git@github.com:Pirate298/iron-flow.git ~/.iron-flow
+~/.iron-flow/install.sh                 # → user config: ${CLAUDE_CONFIG_DIR:-~/.claude}/skills
 # hoặc cài cho riêng 1 project (như BMAD):
-~/.agent-kit/install.sh --project /path/to/project     # → <project>/.claude/skills
+~/.iron-flow/install.sh --project /path/to/project     # → <project>/.claude/skills
 ```
-Mở phiên Claude Code mới để nạp. Cài lại/ cập nhật: `git pull && ~/.agent-kit/install.sh`.
+Mở phiên Claude Code mới để nạp. Cài lại/ cập nhật: `git pull && ~/.iron-flow/install.sh`.
 
 ## Pipeline
 

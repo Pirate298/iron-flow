@@ -1,4 +1,4 @@
-# agent-kit manifest
+# iron-flow manifest
 # [area] mở một nhóm → mọi skill dưới nó được đổi tên thành <area>-<skill> (vd /flow-intake).
 # Dòng trước mọi [area] = không prefix (giữ nguyên tên).
 # Mỗi dòng = tên thư mục dưới skills/. Sửa xong chạy ./install.sh.
