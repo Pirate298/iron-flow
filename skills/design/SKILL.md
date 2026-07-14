@@ -42,10 +42,11 @@ Tổng hợp (KHÔNG phỏng vấn lại) thành spec theo template, dùng đún
 "make the change easy, then make the easy change". Liệt kê **edge case** đầy đủ và **test plan** (đường code nào
 được phủ, đâu cần E2E). Với mỗi phát hiện đáng kể → nêu và để user quyết (đừng nhét âm thầm vào doc).
 
-## 5. Contract FE↔BE tường minh (Solis)
-Ghi rõ **hợp đồng API** giữa `apps/mobile` (FE) và `apps/api`/`apps/engine` (BE): endpoint, shape request/response,
-lỗi, ai tính gì (LLM-gen / computed / mock — xem `docs/fe-data-sources.md`). Nếu thêm feature vào **shared registry**
-→ ghi chú phải redeploy cả api+engine+chart-service (nếu không FE treo skeleton "Unknown feature").
+## 5. Contract FE↔BE tường minh
+Ghi rõ **hợp đồng** giữa FE và BE của chính project (REST / GraphQL / gRPC / RPC / SDK — tùy stack):
+endpoint/method, shape request/response, mã lỗi, ai tính gì (server-computed / client-computed / mock/stub),
+nguồn dữ liệu mỗi field. Nếu feature đụng phần dùng chung (shared schema / registry / package)
+→ ghi chú phải rebuild/redeploy mọi consumer, nếu không FE sẽ hỏng khi gọi contract chưa tồn tại.
 
 ## 6. Plan cắt lát (mattpocock to-tickets)
 Chia thành **tracer bullets**: mỗi ticket cắt **dọc** một đường mỏng-nhưng-đủ qua mọi tầng (schema→BE→FE→test),

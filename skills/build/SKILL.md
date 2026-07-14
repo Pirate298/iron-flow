@@ -31,11 +31,15 @@ giữa các ticket trừ khi BLOCKED/nhập nhằng thật.
   Tránh: test khớp impl (mock nội bộ / test private), tautological (assert tính lại chính giá trị kỳ vọng),
   horizontal (viết hết test rồi hết impl) → thay bằng **vertical slice**: 1 test → 1 impl → lặp.
 
-## Runner của Solis
-- `vitest` cho `apps/api`, `apps/engine`. `jest` (jest-expo) cho `apps/mobile`.
-- Chạy typecheck thường xuyên + file test đơn lẻ thường xuyên; **full suite một lần ở cuối**.
-- **E2E mobile = Maestro** (`apps/mobile/e2e/`). Thêm luồng/tính năng mới **bắt buộc** thêm/sửa flow Maestro tương ứng.
-- Đổi shared registry → nhớ redeploy cả api+engine+chart-service (thuộc flow-ship, nhưng thiết kế test tính từ đây).
+## Test runner (tự phát hiện theo stack, ĐỪNG giả định)
+- Xác định runner từ cấu hình project, ví dụ: JS/TS → `vitest`/`jest`; Flutter/Dart → `flutter test`
+  (có fvm thì `fvm flutter test`); Go → `go test`; Python → `pytest`; Swift → `swift test`/XCTest; Rust → `cargo test`;
+  Kotlin/JVM → `gradle test`. Không rõ → đọc script test trong config hoặc CI trước khi chạy.
+- Chạy typecheck/lint thường xuyên + file test đơn lẻ thường xuyên; **full suite một lần ở cuối**.
+- **E2E** dùng công cụ sẵn có của project (Maestro / Playwright / Cypress / integration_test / XCUITest…).
+  Thêm luồng/tính năng UI mới → **bắt buộc** thêm/sửa E2E tương ứng nếu project có tầng E2E.
+- Có phần dùng chung (shared schema/registry/package) → sau khi đổi phải rebuild/redeploy mọi consumer (BE lẫn FE)
+  (thuộc flow-ship, nhưng thiết kế test tính từ đây).
 
 ## Song song (tùy chọn)
 Nếu có nhiều ticket **độc lập** (không share state, không sửa cùng file) → dispatch nhiều agent song song

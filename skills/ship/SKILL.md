@@ -31,16 +31,17 @@ sửa gọn, không xin lỗi dài.
 build=exit 0, "bug đã fix"=test lại triệu chứng gốc, regression=đỏ-rồi-xanh, "agent xong"=xem diff VCS,
 "khớp requirement"=checklist từng dòng. Bỏ bước = nói dối.
 - **Sản phẩm khớp thiết kế**: đối chiếu kết quả thật với `docs/flow/<feature>/{intake,design}.md` + UI/UX ref.
-  Với mobile, exercise luồng thật (Maestro / máy thật) — không chỉ unit test.
+  Chạy thử luồng người dùng thật (E2E của project / thiết bị / trình duyệt thật) — không chỉ unit test.
 
 ## 5. Kết nhánh (superpowers finishing-a-development-branch)
 Verify test xanh TRƯỚC. Rồi trình đúng 4 lựa chọn: (1) merge local, (2) push + tạo PR, (3) giữ nhánh, (4) hủy
 (gõ "discard" xác nhận). Merge xong verify lại trên kết quả rồi mới xóa worktree/branch.
 
-## 6. Ra bản build (Solis — KHÔNG dùng deploy web của gstack)
-- Đổi shared registry → **redeploy cả api + engine + chart-service** trước.
-- Bản mobile qua skill build sẵn có: `/build-apk`, `/build-aab`, `/build-ios`, `/build-debug-android`,
-  `/build-debug-ios` (chúng tự nâng version + upload Drive). E2E lại bằng Maestro trước khi phát hành.
-- Đổi hành vi → cập nhật `docs/` cùng PR (source of truth).
+## 6. Ra bản build / deploy (theo cách của chính project)
+- Có phần dùng chung bị đổi → **rebuild/redeploy mọi consumer** (BE lẫn FE) trước.
+- Build/release bằng quy trình sẵn có của project: ưu tiên skill/script `/build-*` trong repo nếu có; nếu không
+  dùng lệnh chuẩn của stack (vd `flutter build` / `gradle assembleRelease` / `xcodebuild` / `docker build` /
+  `wrangler deploy`, hoặc CI/CD pipeline). Chạy lại E2E trước khi phát hành.
+- Đổi hành vi → cập nhật `docs/` / README cùng PR (source of truth).
 
 <!-- sources: mattpocock/code-review (2-axis, Fowler), gstack/review (checklist, confidence-gate) + cso, superpowers/requesting+receiving-code-review + verification-before-completion + finishing-a-development-branch @ 2026-07-14 -->
