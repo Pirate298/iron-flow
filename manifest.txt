@@ -1,0 +1,13 @@
+# agent-kit manifest
+# [area] mở một nhóm → mọi skill dưới nó được đổi tên thành <area>-<skill> (vd /flow-intake).
+# Dòng trước mọi [area] = không prefix (giữ nguyên tên).
+# Mỗi dòng = tên thư mục dưới skills/. Sửa xong chạy ./install.sh.
+
+flow            # master orchestrator → /flow (không prefix)
+
+[flow]
+intake          # /flow-intake  — nhận requirement + UI/UX, làm rõ scope
+design          # /flow-design  — requirement → thiết kế hệ thống FE↔BE, mở rộng
+build           # /flow-build   — code + test
+debug           # /flow-debug   — root-cause khi lỗi
+ship            # /flow-ship    — review + verify + ra sản phẩm
